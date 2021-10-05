@@ -43,11 +43,16 @@ class _HomePageState extends State<HomePage> {
             if (snapshot.hasData) {
               List<Article> article = snapshot.data!;
               return ListView.builder(
+                  itemCount: article.length, //add
                   itemBuilder: (context, index) =>
                       customListTile(article[index], context));
             }
             return Center();
           }),
     );
+  }
+ //add
+  Widget customListTile(Article article, BuildContext context) {
+    return Container();
   }
 }
