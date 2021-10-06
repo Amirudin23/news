@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:telkom_news/model/article_model.dart';
+import 'package:telkom_news/page/article_detail.dart';
 import 'package:telkom_news/serviece/apiservice.dart';
 
 void main() {
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
   }
@@ -51,8 +54,56 @@ class _HomePageState extends State<HomePage> {
           }),
     );
   }
- //add
+
+  //add
   Widget customListTile(Article article, BuildContext context) {
-    return Container();
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => ArticleDetail(article: article,)));
+      },
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 200,
+              width: double.infinity,
+              child: article.urlToImage == null
+                  ? Image.asset(
+                      "assets/img/no_image.jpg",
+                      fit: BoxFit.cover,
+                    )
+                  : CachedNetworkImage(
+                      imageUrl: article.urlToImage!,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Container(
+              padding: EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Text(
+                article.source!.name! == null
+                    ? "Source Kosong"
+                    : article.source!.name!,
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(article.title == null ? "Judul Kosong" : article.title!)
+          ],
+        ),
+      ),
+    );
   }
 }
