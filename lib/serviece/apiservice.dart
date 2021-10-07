@@ -5,7 +5,7 @@ import 'package:telkom_news/model/article_model.dart';
 
 class ApiService {
 
-  final endPoint = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=15eae1814a164418bda00f1e5691d92c";
+  final endPoint = "Your API Key";
   
 
   Future<List<Article>> getArticle() async {
